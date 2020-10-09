@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace HuffmanCode
@@ -47,6 +48,17 @@ namespace HuffmanCode
                 }
             }
         }
+
+
+        //public void SaveInFileTxtTheDictionnary(File file,Node node,string bit)
+        //{
+        //    if(node == null)
+        //    {
+        //        return;
+        //    }
+
+           
+        //}
 
     }
 

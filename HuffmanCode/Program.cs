@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+﻿using HuffmanCode.Helper;
 
 namespace HuffmanCode
 {
@@ -21,6 +22,17 @@ namespace HuffmanCode
 
             }
 
+            FileBuilder fileBuilder = new FileBuilder();
+            string prexPath = "HuffmanCode/Assert/";
+            string contentBin = fileBuilder.FileTobin($"{prexPath}Alice.txt");
+            if (fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin))
+            {
+                Console.WriteLine("Sauvegarder !!!");
+            }
+
+            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Alice.txt"));
+            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Output.txt"));
+            Console.ReadLine();
         }
 
     }

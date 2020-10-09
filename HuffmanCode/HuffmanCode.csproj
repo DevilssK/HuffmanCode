@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="HuffmanCode\Assert\Alice.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestOccurencies.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
