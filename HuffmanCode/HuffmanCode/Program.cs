@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HuffmanCode.Helper;
+using System;
 
 namespace HuffmanCode
 {
@@ -6,7 +7,17 @@ namespace HuffmanCode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            FileBuilder fileBuilder = new FileBuilder();
+            string prexPath = @"../../../Assert/";
+            string contentBin = fileBuilder.FileTobin($"{prexPath}Alice.txt");
+            if (fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin))
+            {
+                Console.WriteLine("Sauvegarder !!!");
+            }
+
+            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Alice.txt"));
+            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Output.txt"));
+            Console.ReadLine();
         }
     }
 }
