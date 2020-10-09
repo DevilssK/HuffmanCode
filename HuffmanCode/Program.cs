@@ -15,7 +15,7 @@ namespace HuffmanCode
 
             a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);
 
-            foreach (var item in a._occurenciesDictionnary)
+            foreach (var item in a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies))
             {
                 Console.WriteLine(item.Key.ToString() + ":" + item.Value.ToString());
 

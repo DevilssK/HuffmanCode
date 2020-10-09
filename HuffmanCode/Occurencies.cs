@@ -6,14 +6,10 @@ namespace HuffmanCode
 {
    public class Occurencies
    {
-        public Dictionary<char, int> _occurenciesDictionnary;
-        public Occurencies()
-        {
-            _occurenciesDictionnary = new Dictionary<char, int>();
-        }
 
-        public void GuessNumberOfOccurenciesWithDictionnary(string text)
+        public Dictionary<char, int> GuessNumberOfOccurenciesWithDictionnary(string text)
         {
+            Dictionary<char, int>  _occurenciesDictionnary = new Dictionary<char, int>();
 
             foreach (var item in text)
             {
@@ -26,6 +22,7 @@ namespace HuffmanCode
                     _occurenciesDictionnary.Add(item, 1);
                 }
             }
+            return _occurenciesDictionnary;
 
         }
     }
