@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace HuffmanCode
 {
@@ -7,8 +8,20 @@ namespace HuffmanCode
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.ReadLine();
+
+            Occurencies a = new Occurencies();
+
+            var fileOccurencies = File.ReadAllText(Directory.GetCurrentDirectory() + "/TestOccurencies.txt");
+
+            a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);
+
+            foreach (var item in a._occurenciesDictionnary)
+            {
+                Console.WriteLine(item.Key.ToString() + ":" + item.Value.ToString());
+
+            }
 
         }
+
     }
 }
