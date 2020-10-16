@@ -52,11 +52,11 @@ namespace HuffmanCode
             Node node3 = new Node(node4, node5, 0, '\0');
             Node node = new Node(node2, node3, 0, '\0');
 
-
             var dict = new Dictionary<char, string>();
 
             dict = TreeBuilder.ReadNodeToDictionnary(node, "", dict);
 
+            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
 
 
             //******************************************************************************************************************
