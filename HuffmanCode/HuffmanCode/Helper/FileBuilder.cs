@@ -1,6 +1,9 @@
-﻿using System;
+﻿using HuffmanCode.HuffmanCode.Helper;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,6 +96,59 @@ namespace HuffmanCode.Helper
 
             }
             return size;
+        }
+
+        public string TranslateContentToBinByHuffMan(Dictionary<Char, String> DictionnaryeHuffman, string Path)
+        {
+            string content = string.Empty;
+            try
+            {
+                if (File.Exists(Path))
+                {
+                    char[] charArrayContentFile = null;
+
+                    using (StreamReader streamReader = new StreamReader(Path))
+                    {
+                        charArrayContentFile = (streamReader.ReadToEnd()).ToCharArray();
+                        streamReader.Close();
+                    }
+
+                    foreach (var charArrayCurrent in charArrayContentFile)
+                    {
+                        string output = charArrayCurrent.ToString();
+
+                        var isInDictionnary = DictionnaryeHuffman.TryGetValue(charArrayCurrent, out output);
+
+                        content += isInDictionnary == false ? charArrayCurrent.ToString() : output;
+                    }
+                }
+            }
+            catch (Exception eException)
+            {
+                Console.WriteLine(eException);
+            }
+            return content;
+        }
+
+
+        public bool FileCompresse(string PathFileEnter, string PathFileLeave, Dictionary<Char, String> DictionnaryeHuffman)
+        {
+            bool isCompresse = false;
+            try
+            {
+                if (File.Exists(PathFileEnter))
+                {
+                    string binHumanContentFile = TranslateContentToBinByHuffMan(DictionnaryeHuffman, PathFileEnter);
+
+                    isCompresse = this.CreateFile(PathFileLeave, binHumanContentFile);
+                }
+            }
+            catch (Exception eException)
+            {
+                isCompresse = false;
+                Console.WriteLine(eException);
+            }
+            return isCompresse;
         }
     }
 }

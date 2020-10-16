@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-﻿using HuffmanCode.Helper;
+using HuffmanCode.Helper;
 
 namespace HuffmanCode
 {
@@ -9,9 +10,8 @@ namespace HuffmanCode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             Occurencies a = new Occurencies();
+            //TreeBuilder builder = new TreeBuilder();
 
             var fileOccurencies = File.ReadAllText(Directory.GetCurrentDirectory() + "/TestOccurencies.txt");
 
@@ -31,62 +31,71 @@ namespace HuffmanCode
                 Console.WriteLine("Sauvegarder !!!");
             }
 
-            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Alice.txt"));
-            Console.WriteLine(fileBuilder.CounterChar($"{prexPath}Output.txt"));
+
+            Console.WriteLine($"Nombre de caractere dans le fichier Alice : {fileBuilder.CounterChar($"{prexPath}Alice.txt")}");
+            Console.WriteLine($"Nombre de caractere dans le fichier Output : {fileBuilder.CounterChar($"{prexPath}Output.txt")}");
+
+
+            Dictionary<char, string> ee = new Dictionary<char, string>();
+            ee.Add('A', "1");
+            ee.Add('a', "11");
+            ee.Add('e', "0");
+            ee.Add('i', "100");
+            ee.Add('o', "111");
+            ee.Add('u', "011");
+            ee.Add(' ', "101");
+
+
+
+            //******************************************************************************************************************
+            //  2.4 f - Écrire une fonction qui traduit un texte en une suite binaire basée sur un dictionnaire de Huffman.
+            //*******************************************************************************************************************
+            // Création du chronomètre.
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Démarrage du chronomètre.
+            stopwatch.Start();
+
+            Console.WriteLine(fileBuilder.TranslateContentToBinByHuffMan(ee, $"{prexPath}Alice.txt"));
+
+            stopwatch.Stop();
+            Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
+
+            //*******************************************************************************************************************************************************************
+            //  2.4 g - Écrire une fonction qui compresse un fichier texte. Le fichier d’entrée ne sera pas modifié, un autre fichier, contenant le texte compressé sera créé.
+            //*******************************************************************************************************************************************************************
+            bool isCompresse = fileBuilder.FileCompresse($"{prexPath}Alice.txt", $"{prexPath}Output2.txt", ee);
+            if (isCompresse)
+            {
+                Console.WriteLine("Compresse Succes !!");
+            }
+            else
+            {
+                Console.WriteLine("Compresse Failed !!");
+            }
+
             Console.ReadLine();
 
-
-
-            Node node = new Node();
-            Node node2 = new Node();
-            Node node3 = new Node();
-            Node node4 = new Node();
-            Node node5 = new Node();
-            Node node6 = new Node();
-            Node node7 = new Node();
-            Node node8 = new Node();
-            Node node9 = new Node();
-            Node node10 = new Node();
-            Node node11 = new Node();
-            Node node12 = new Node();
-            Node node13 = new Node();
-            Node node14 = new Node();
-            Node node15 = new Node();
-
-            node2.Letter = 'E';
-            node6.Letter = 'U';
-            node7.Letter = 'D';
-            node8.Letter = 'L';
-            node10.Letter = 'C';
-            node13.Letter = 'M';
-            node14.Letter = 'Z';
-            node15.Letter = 'K';
-
-            node.ChildLeft = node2;
-            node.ChildRight = node3;
-
-            node3.ChildLeft = node4;
-            node3.ChildRight = node5;
-
-            node4.ChildLeft = node6;
-            node4.ChildRight = node7;
-
-            node5.ChildLeft = node8;
-            node5.ChildRight = node9;
-
-            node9.ChildLeft = node10;
-            node9.ChildRight = node11;
-
-            node11.ChildRight = node13;
-            node11.ChildLeft = node12;
-
-            node12.ChildRight = node15;
-            node12.ChildLeft = node14;
+            Node node2 = new Node(null, null, 0, 'E');
+            Node node6 = new Node(null, null, 0, 'U');
+            Node node7 = new Node(null, null, 0, 'D');
+            Node node8 = new Node(null, null, 0, 'L');
+            Node node10 = new Node(null, null, 0, 'C');
+            Node node14 = new Node(null, null, 0, 'Z');
+            Node node15 = new Node(null, null, 0, 'K');
+            Node node13 = new Node(null, null, 0, 'M');
+            Node node4 = new Node(node6, node7, 0, '\0');
+            Node node12 = new Node(node14, node15, 0, '\0');
+            Node node11 = new Node(node12,node13,0,'\0');
+            Node node9 = new Node(node10, node11, 0, '\0');
+            Node node5 = new Node(node8, node9, 0, '\0');
+            Node node3 = new Node(node4, node5, 0, '\0');
+            Node node = new Node(node2, node3, 0, '\0');
 
 
             var dict = new Dictionary<char, string>();
 
-             dict = TreeBuilder.ReadNodeToDictionnary(node, "", dict);
+            dict = TreeBuilder.ReadNodeToDictionnary(node, "", dict);
 
         }
 
