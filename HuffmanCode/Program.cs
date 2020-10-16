@@ -36,7 +36,7 @@ namespace HuffmanCode
             var dict = new Dictionary<char, string>();
             dict = TreeBuilder.ReadNodeToDictionnary(res, "", dict);
 
-            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");  
+            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
             var dictOfFiles = fileBuilder.FilesToDicto($"{prexPath}Dico.txt");
 
 
@@ -69,7 +69,7 @@ namespace HuffmanCode
                 Console.WriteLine("Compresse Failed !!");
             }
 
-            bool isDecompresse = fileBuilder.FileDecompresse(dictOfFiles, $"{prexPath}Output3.txt",$"{prexPath}Output2.txt" );
+            bool isDecompresse = fileBuilder.FileDecompresse(dictOfFiles, $"{prexPath}Output3.txt", $"{prexPath}Output2.txt");
             if (isDecompresse)
             {
                 Console.WriteLine("Decompresse Succes !!");
@@ -80,7 +80,6 @@ namespace HuffmanCode
             }
 
 
-           
 
         }
 
