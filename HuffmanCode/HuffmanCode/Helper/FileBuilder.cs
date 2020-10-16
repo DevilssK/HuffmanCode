@@ -199,6 +199,7 @@ namespace HuffmanCode.Helper
         private string TranslateBinHuffManToString(Dictionary<char, string> dictionaries, string pathFileBinHuffman)
         {
             string content = string.Empty;
+            string result = "";
             try
             {
                 if (dictionaries.Count != 0 && File.Exists(pathFileBinHuffman))
@@ -208,10 +209,17 @@ namespace HuffmanCode.Helper
                         content = streamReader.ReadToEnd();
                         streamReader.Close();
                     }
-
-                    foreach (var item in dictionaries)
+                    while (content.Length > 0)
                     {
-                        content = content.Replace(item.Value, item.Key.ToString());
+                        foreach (var item in dictionaries)
+                        {
+                            if (content.StartsWith(item.Value))
+                            {
+                                content = content.Remove(0, item.Value.Length);
+                                result += item.Key;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -220,7 +228,7 @@ namespace HuffmanCode.Helper
                 Console.WriteLine(eException);
             }
 
-            return content;
+            return result;
         }
 
         /// <summary>

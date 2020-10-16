@@ -69,7 +69,12 @@ namespace HuffmanCode
                 Console.WriteLine("Compresse Failed !!");
             }
 
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             bool isDecompresse = fileBuilder.FileDecompresse(dictOfFiles, $"{prexPath}Output3.txt", $"{prexPath}Output2.txt");
+            stopwatch.Stop();
+            Console.WriteLine("Durée d'exécution Decompress : {0} sec.", stopwatch.Elapsed.TotalSeconds);
+
             if (isDecompresse)
             {
                 Console.WriteLine("Decompresse Succes !!");
