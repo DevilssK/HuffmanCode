@@ -150,5 +150,24 @@ namespace HuffmanCode.Helper
             }
             return isCompresse;
         }
+
+        public void DictoToFiles(Dictionary<char, string> DictonnaryHuffman,string FileToWrite)
+        {
+            try
+            {
+                if (DictonnaryHuffman.Count != 0)
+                {
+                        using (StreamWriter file = new StreamWriter(FileToWrite))
+                        foreach (var entry in DictonnaryHuffman)
+                        {
+                            file.WriteLine("{0} : {1}", entry.Key, entry.Value);
+                        }
+                }
+            }
+            catch (Exception eException)
+            {
+                Console.WriteLine(eException);
+            }
+        }
     }
 }
