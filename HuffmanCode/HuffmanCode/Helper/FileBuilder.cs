@@ -135,6 +135,33 @@ namespace HuffmanCode.Helper
             return content;
         }
 
+        public string TranslateContentToBinByHuffManReplace(Dictionary<Char, String> DictionnaryeHuffman, string Path)
+        {
+            string content = string.Empty;
+            try
+            {
+                if (File.Exists(Path))
+                {
+
+                    using (StreamReader streamReader = new StreamReader(Path))
+                    {
+                        content = streamReader.ReadToEnd();
+                        streamReader.Close();
+                    }
+
+                    foreach (var item in DictionnaryeHuffman)
+                    {
+                        content = content.Replace(item.Key.ToString(), item.Value);
+                    }
+                }
+            }
+            catch (Exception eException)
+            {
+                Console.WriteLine(eException);
+            }
+            return content;
+        }
+
         /// <summary>
         /// Compresser un fichier.
         /// </summary>
