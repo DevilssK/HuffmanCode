@@ -38,8 +38,8 @@ namespace HuffmanCode
 
             Node node2 = new Node(null, null, 0, 'a');
             Node node6 = new Node(null, null, 0, 'i');
-            Node node7 = new Node(null, null, 0, 'D');
-            Node node8 = new Node(null, null, 0, 'L');
+            Node node7 = new Node(null, null, 0, 'o');
+            Node node8 = new Node(null, null, 0, 'l');
             Node node10 = new Node(null, null, 0, 'C');
             Node node14 = new Node(null, null, 0, 'Z');
             Node node15 = new Node(null, null, 0, 'K');
@@ -53,12 +53,13 @@ namespace HuffmanCode
             Node node = new Node(node2, node3, 0, '\0');
 
             var dict = new Dictionary<char, string>();
-
             dict = TreeBuilder.ReadNodeToDictionnary(node, "", dict);
 
-            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
+            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");  
+            var dictOfFiles = fileBuilder.FilesToDicto($"{prexPath}Dico.txt");
 
 
+            Debug.Assert(dictOfFiles.Count == dict.Count);
             //******************************************************************************************************************
             //  2.4 f - Écrire une fonction qui traduit un texte en une suite binaire basée sur un dictionnaire de Huffman.
             //*******************************************************************************************************************
@@ -68,7 +69,7 @@ namespace HuffmanCode
             // Démarrage du chronomètre.
             stopwatch.Start();
 
-            Console.WriteLine(fileBuilder.TranslateContentToBinByHuffMan(dict, $"{prexPath}Alice.txt"));
+            Console.WriteLine(fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}Alice.txt"));
 
             stopwatch.Stop();
             Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
@@ -76,16 +77,26 @@ namespace HuffmanCode
             //*******************************************************************************************************************************************************************
             //  2.4 g - Écrire une fonction qui compresse un fichier texte. Le fichier d’entrée ne sera pas modifié, un autre fichier, contenant le texte compressé sera créé.
             //*******************************************************************************************************************************************************************
-            bool isCompresse = fileBuilder.FileCompresse($"{prexPath}Alice.txt", $"{prexPath}Output2.txt", dict);
+            bool isCompresse = fileBuilder.FileCompresse($"{prexPath}Alice.txt", $"{prexPath}Output2.txt", dictOfFiles);
             if (isCompresse)
             {
                 Console.WriteLine("Compresse Succes !!");
+                Console.WriteLine($"Nombre de caractere dans le fichier Output2 : {fileBuilder.CounterChar($"{prexPath}Output2.txt")}");
             }
             else
             {
                 Console.WriteLine("Compresse Failed !!");
             }
 
+            bool isDecompresse = fileBuilder.FileDecompresse(dictOfFiles, $"{prexPath}Output3.txt",$"{prexPath}Output2.txt" );
+            if (isDecompresse)
+            {
+                Console.WriteLine("Decompresse Succes !!");
+            }
+            else
+            {
+                Console.WriteLine("Decompresse Failed !!");
+            }
 
 
 
