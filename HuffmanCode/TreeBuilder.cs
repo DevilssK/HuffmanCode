@@ -50,32 +50,32 @@ namespace HuffmanCode
         }
 
 
-        public static Dictionary<char,string> ReadNodeToDictionnary( Node node, string bit, Dictionary<char, string> dict )
+        public static void ReadNodeToDictionnary( Node node, string bit, StreamWriter file )
         {
             if (node == null)
             {
-                return dict;
+                return;
             }
 
             if (node._item.Letter != '\0')
             {
-                dict.Add(node._item.Letter, bit);
+                file.WriteLine("{0} : {1}", node._item.Letter, bit);
             }
 
             if (node.ChildLeft != null)
             {
                 bit = bit  + "0";
-                dict = ReadNodeToDictionnary(node.ChildLeft,bit,dict);
+                ReadNodeToDictionnary(node.ChildLeft,bit,file);
                 bit = bit.Remove(bit.Length - 1);
             }
 
             if (node.ChildRight != null)
             {
                 bit = bit + "1";
-                dict = ReadNodeToDictionnary(node.ChildRight, bit, dict);
+                ReadNodeToDictionnary(node.ChildRight, bit, file);
             }
 
-            return dict;
+            return;
 
         }
 

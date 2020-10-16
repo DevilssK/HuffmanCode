@@ -28,14 +28,18 @@ namespace HuffmanCode
             string contentBin = fileBuilder.FileTobin($"{prexPath}Alice.txt");
             fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin);
            
-            var dict = new Dictionary<char, string>();
-            dict = TreeBuilder.ReadNodeToDictionnary(res, "", dict);
+            using (StreamWriter file = new StreamWriter($"{prexPath}Dico.txt"))
+            {
+                TreeBuilder.ReadNodeToDictionnary(res, "", file);
+                file.Close();
+            }
 
-            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
+            //Old way 
+            //fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
             var dictOfFiles = fileBuilder.FilesToDicto($"{prexPath}Dico.txt");
 
 
-            Debug.Assert(dictOfFiles.Count == dict.Count);
+            //Debug.Assert(dictOfFiles.Count == dict.Count);
             //******************************************************************************************************************
             //  2.4 f - Écrire une fonction qui traduit un texte en une suite binaire basée sur un dictionnaire de Huffman.
             //*******************************************************************************************************************
