@@ -232,7 +232,9 @@ namespace HuffmanCode.Helper
                         while ((line = streamReader.ReadLine()) != null)
                         {
                             var test = line.Split(':').Select(x => x.Trim()).ToArray();
-                            dictionnary.Add(char.Parse(test[0]), test[1]);
+
+                            if(test[0] == string.Empty) dictionnary.Add(' ', test[1]);
+                            else dictionnary.Add(char.Parse(test[0]), test[1]);
                         }
 
                     }

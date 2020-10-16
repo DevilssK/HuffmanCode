@@ -11,20 +11,18 @@ namespace HuffmanCode
         static void Main(string[] args)
         {
             Occurencies a = new Occurencies();
-            //TreeBuilder builder = new TreeBuilder();
+            string prexPath = "HuffmanCode/Assert/";
 
-            var fileOccurencies = File.ReadAllText(Directory.GetCurrentDirectory() + "/TestOccurencies.txt");
+            TreeBuilder builder = new TreeBuilder();
+            var fileOccurencies = File.ReadAllText($"{prexPath}Alice.txt");
 
-            a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);
+            var r = a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);
 
-            foreach (var item in a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies))
-            {
-                Console.WriteLine(item.Key.ToString() + ":" + item.Value.ToString());
+            Node res = builder.BuildTree(r);
+            Console.ReadLine();
 
-            }
 
             FileBuilder fileBuilder = new FileBuilder();
-            string prexPath = "HuffmanCode/Assert/";
             string contentBin = fileBuilder.FileTobin($"{prexPath}Alice.txt");
             if (fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin))
             {
@@ -35,25 +33,8 @@ namespace HuffmanCode
             Console.WriteLine($"Nombre de caractere dans le fichier Alice : {fileBuilder.CounterChar($"{prexPath}Alice.txt")}");
             Console.WriteLine($"Nombre de caractere dans le fichier Output : {fileBuilder.CounterChar($"{prexPath}Output.txt")}");
 
-
-            Node node2 = new Node(null, null, 0, 'a');
-            Node node6 = new Node(null, null, 0, 'i');
-            Node node7 = new Node(null, null, 0, 'o');
-            Node node8 = new Node(null, null, 0, 'l');
-            Node node10 = new Node(null, null, 0, 'C');
-            Node node14 = new Node(null, null, 0, 'Z');
-            Node node15 = new Node(null, null, 0, 'K');
-            Node node13 = new Node(null, null, 0, 'M');
-            Node node4 = new Node(node6, node7, 0, '\0');
-            Node node12 = new Node(node14, node15, 0, '\0');
-            Node node11 = new Node(node12, node13, 0, '\0');
-            Node node9 = new Node(node10, node11, 0, '\0');
-            Node node5 = new Node(node8, node9, 0, '\0');
-            Node node3 = new Node(node4, node5, 0, '\0');
-            Node node = new Node(node2, node3, 0, '\0');
-
             var dict = new Dictionary<char, string>();
-            dict = TreeBuilder.ReadNodeToDictionnary(node, "", dict);
+            dict = TreeBuilder.ReadNodeToDictionnary(res, "", dict);
 
             fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");  
             var dictOfFiles = fileBuilder.FilesToDicto($"{prexPath}Dico.txt");
@@ -99,6 +80,7 @@ namespace HuffmanCode
             }
 
 
+           
 
         }
 
