@@ -188,6 +188,8 @@ namespace HuffmanCode.Helper
                         files = files.Replace(item.Value, item.Key.ToString());
                     }
 
+                    content = files;
+
                 }
             }
             catch (Exception eException)
