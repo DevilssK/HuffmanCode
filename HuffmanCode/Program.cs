@@ -12,6 +12,7 @@ namespace HuffmanCode
         {
             Occurencies a = new Occurencies();
 
+
             var fileOccurencies = File.ReadAllText(Directory.GetCurrentDirectory() + "/TestOccurencies.txt");
 
             a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);

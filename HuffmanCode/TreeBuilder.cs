@@ -9,7 +9,7 @@ namespace HuffmanCode
     {
         List<OccurenceItem> Occurences = new List<OccurenceItem>();
 
-        TreeBuilder()
+        public   TreeBuilder()
         {
             Occurences.Add(new OccurenceItem()
             {
@@ -31,22 +31,36 @@ namespace HuffmanCode
                 Letter = 'e',
                 Occurences = 1
             });
+
+            BuildTree(Occurences);
         }
 
         public void BuildTree(List<OccurenceItem> List)
         {
-            Node tree = null;
-            foreach (OccurenceItem item in List)
-            {
-                if (tree == null)
-                {
-                    tree = new Node();
-                }
-                else
-                {
+            List<Node> NodeList = new List<Node>();
 
-                }
+            foreach (OccurenceItem occurence in List)
+            {
+                NodeList.Add(new Node(null,null,occurence.Occurences, occurence.Letter));
+
             }
+
+            while (NodeList.Count > 1)
+            {
+
+                Node temp = NodeList[0];
+                Node temp2 = NodeList[1];
+                Node NewNode = new Node(temp, temp2, (temp._item.Occurences + temp2._item.Occurences));
+                int newidx = NodeList.FindIndex(0, (e) =>
+                  {
+                      return e._item.Occurences > NewNode._item.Occurences ? true : false;
+                  });
+                NodeList.Insert(newidx , NewNode);
+                NodeList.Remove(temp);
+                NodeList.Remove(temp2);
+
+            }
+            Console.WriteLine(NodeList.Count);
         }
 
 
@@ -68,9 +82,21 @@ namespace HuffmanCode
         public int Occurences; 
     }
 
-    public class Node : OccurenceItem
+    public class Node 
     {
         public Node ChildLeft;
         public Node ChildRight;
+        public OccurenceItem _item;
+
+        public Node(Node Left ,Node Right, int count, char letter = '\0' )
+        {
+            _item = new OccurenceItem()
+            {
+                Letter = letter,
+                Occurences = count
+
+            };
+            
+        }
     }
 }
