@@ -75,6 +75,8 @@ namespace HuffmanCode
             }
 
             Console.ReadLine();
+            TreeBuilder builder = new TreeBuilder();
+
         }
 
     }
