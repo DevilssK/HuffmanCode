@@ -74,8 +74,10 @@ namespace HuffmanCode
                 Console.WriteLine("Compresse Failed !!");
             }
 
-            Console.ReadLine();
             TreeBuilder builder = new TreeBuilder();
+            Node res =  builder.BuildTree(builder.TestOccurences);
+            builder.PrintTree(res, "-", false);
+            Console.ReadLine();
 
         }
 
