@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HuffmanCode
 {
-    class TreeBuilder
+    public class TreeBuilder
     {
         List<OccurenceItem> Occurences = new List<OccurenceItem>();
 
@@ -50,15 +50,34 @@ namespace HuffmanCode
         }
 
 
-        //public void SaveInFileTxtTheDictionnary(File file,Node node,string bit)
-        //{
-        //    if(node == null)
-        //    {
-        //        return;
-        //    }
+        public static Dictionary<char,string> ReadNodeToDictionnary( Node node, string bit, Dictionary<char, string> dict )
+        {
+            if (node == null)
+            {
+                return dict;
+            }
 
-           
-        //}
+            if (node.Letter != '\0')
+            {
+                dict.Add(node.Letter, bit);
+            }
+
+            if (node.ChildLeft != null)
+            {
+                bit = bit  + "0";
+                dict = ReadNodeToDictionnary(node.ChildLeft,bit,dict);
+                bit = bit.Remove(bit.Length - 1);
+            }
+
+            if (node.ChildRight != null)
+            {
+                bit = bit + "1";
+                dict = ReadNodeToDictionnary(node.ChildRight, bit, dict);
+            }
+
+            return dict;
+
+        }
 
     }
 
