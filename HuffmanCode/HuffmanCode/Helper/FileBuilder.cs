@@ -39,6 +39,7 @@ namespace HuffmanCode.Helper
             }
             catch (Exception Exception)
             {
+                Console.WriteLine(Exception);
             }
 
             return stringBuilder.ToString();
@@ -61,6 +62,7 @@ namespace HuffmanCode.Helper
             }
             catch (Exception Exception)
             {
+                Console.WriteLine(Exception); ;
                 return false;
             }
             return true;
@@ -90,11 +92,17 @@ namespace HuffmanCode.Helper
             }
             catch (Exception Exception)
             {
-
+                Console.WriteLine(Exception);
             }
             return size;
         }
 
+        /// <summary>
+        /// Transformation d'un contenu en binaire grace au dictionnaire Humman. Exos 2.4 F)
+        /// </summary>
+        /// <param name="DictionnaryeHuffman"></param>
+        /// <param name="Path"></param>
+        /// <returns></returns>
         public string TranslateContentToBinByHuffMan(Dictionary<Char, String> DictionnaryeHuffman, string Path)
         {
             string content = string.Empty;
@@ -127,7 +135,13 @@ namespace HuffmanCode.Helper
             return content;
         }
 
-
+        /// <summary>
+        /// Compresser un fichier.
+        /// </summary>
+        /// <param name="PathFileEnter"></param>
+        /// <param name="PathFileLeave"></param>
+        /// <param name="DictionnaryeHuffman"></param>
+        /// <returns></returns>
         public bool FileCompresse(string PathFileEnter, string PathFileLeave, Dictionary<Char, String> DictionnaryeHuffman)
         {
             bool isCompresse = false;
@@ -148,6 +162,13 @@ namespace HuffmanCode.Helper
             return isCompresse;
         }
 
+        /// <summary>
+        /// Decompresser un fichier.
+        /// </summary>
+        /// <param name="DictionnaryeHuffman"></param>
+        /// <param name="PathFileLeave"></param>
+        /// <param name="PathFileBinHuffman"></param>
+        /// <returns></returns>
         public bool FileDecompresse(Dictionary<char, string> DictionnaryeHuffman, string PathFileLeave, string PathFileBinHuffman)
         {
             bool isCompresse = false;
@@ -168,6 +189,13 @@ namespace HuffmanCode.Helper
             return isCompresse;
         }
 
+
+        /// <summary>
+        /// Transformation d'un fichier bin dans sa valeur d'origine. Exos 2.5 h)
+        /// </summary>
+        /// <param name="dictionaries"></param>
+        /// <param name="pathFileBinHuffman"></param>
+        /// <returns></returns>
         private string TranslateBinHuffManToString(Dictionary<char, string> dictionaries, string pathFileBinHuffman)
         {
             string content = string.Empty;
@@ -175,21 +203,16 @@ namespace HuffmanCode.Helper
             {
                 if (dictionaries.Count != 0 && File.Exists(pathFileBinHuffman))
                 {
-
-                    var files = string.Empty;
                     using (StreamReader streamReader = new StreamReader(pathFileBinHuffman))
                     {
-                        files = streamReader.ReadToEnd();
+                        content = streamReader.ReadToEnd();
                         streamReader.Close();
                     }
 
                     foreach (var item in dictionaries)
                     {
-                        files = files.Replace(item.Value, item.Key.ToString());
+                        content = content.Replace(item.Value, item.Key.ToString());
                     }
-
-                    content = files;
-
                 }
             }
             catch (Exception eException)
@@ -200,6 +223,11 @@ namespace HuffmanCode.Helper
             return content;
         }
 
+        /// <summary>
+        /// Sérialisation d'un dictionnaire en fichier.
+        /// </summary>
+        /// <param name="DictonnaryHuffman"></param>
+        /// <param name="FileToWrite"></param>
         public void DictoToFiles(Dictionary<char, string> DictonnaryHuffman, string FileToWrite)
         {
             try
@@ -219,6 +247,11 @@ namespace HuffmanCode.Helper
             }
         }
 
+        /// <summary>
+        /// Désérialisation d'un fichier en dictionnaire
+        /// </summary>
+        /// <param name="FileToRead"></param>
+        /// <returns></returns>
         public Dictionary<char, string> FilesToDicto(string FileToRead)
         {
             var dictionnary = new Dictionary<char, string>();
