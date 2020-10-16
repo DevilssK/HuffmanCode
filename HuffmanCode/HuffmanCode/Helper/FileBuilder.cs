@@ -52,19 +52,16 @@ namespace HuffmanCode.Helper
         /// <param name="content"></param>
         public bool CreateFile(string Path, string content)
         {
-            if (!File.Exists(Path))
+            try
             {
-                try
+                using (StreamWriter streamWriter = new StreamWriter(Path, false))
                 {
-                    using (StreamWriter streamWriter = new StreamWriter(Path, false))
-                    {
-                        streamWriter.Write(content);
-                    }
+                    streamWriter.Write(content);
                 }
-                catch (Exception Exception)
-                {
-                    return false;
-                }
+            }
+            catch (Exception Exception)
+            {
+                return false;
             }
             return true;
         }
@@ -151,13 +148,63 @@ namespace HuffmanCode.Helper
             return isCompresse;
         }
 
-        public void DictoToFiles(Dictionary<char, string> DictonnaryHuffman,string FileToWrite)
+        public bool FileDecompresse(Dictionary<char, string> DictionnaryeHuffman, string PathFileLeave, string PathFileBinHuffman)
+        {
+            bool isCompresse = false;
+            try
+            {
+                if (DictionnaryeHuffman.Count != 0 && File.Exists(PathFileBinHuffman))
+                {
+                    string binHumanContentFile = TranslateBinHuffManToString(DictionnaryeHuffman.OrderByDescending(obj => obj.Value.Count()).ToDictionary(obj => obj.Key, obj => obj.Value), PathFileBinHuffman);
+
+                    isCompresse = this.CreateFile(PathFileLeave, binHumanContentFile);
+                }
+            }
+            catch (Exception eException)
+            {
+                isCompresse = false;
+                Console.WriteLine(eException);
+            }
+            return isCompresse;
+        }
+
+        private string TranslateBinHuffManToString(Dictionary<char, string> dictionaries, string pathFileBinHuffman)
+        {
+            string content = string.Empty;
+            try
+            {
+                if (dictionaries.Count != 0 && File.Exists(pathFileBinHuffman))
+                {
+
+                    var files = string.Empty;
+                    using (StreamReader streamReader = new StreamReader(pathFileBinHuffman))
+                    {
+                        files = streamReader.ReadToEnd();
+                        streamReader.Close();
+                    }
+
+                    foreach (var item in dictionaries)
+                    {
+                        files = files.Replace(item.Value, item.Key.ToString());
+                    }
+
+                }
+            }
+            catch (Exception eException)
+            {
+                Console.WriteLine(eException);
+            }
+
+            return content;
+        }
+
+        public void DictoToFiles(Dictionary<char, string> DictonnaryHuffman, string FileToWrite)
         {
             try
             {
                 if (DictonnaryHuffman.Count != 0)
                 {
-                        using (StreamWriter file = new StreamWriter(FileToWrite))
+                    using (StreamWriter file = new StreamWriter(FileToWrite))
                         foreach (var entry in DictonnaryHuffman)
                         {
                             file.WriteLine("{0} : {1}", entry.Key, entry.Value);
@@ -168,6 +215,35 @@ namespace HuffmanCode.Helper
             {
                 Console.WriteLine(eException);
             }
+        }
+
+        public Dictionary<char, string> FilesToDicto(string FileToRead)
+        {
+            var dictionnary = new Dictionary<char, string>();
+            try
+            {
+                if (File.Exists(FileToRead))
+                {
+                    using (StreamReader streamReader = new StreamReader(FileToRead))
+                    {
+                        var line = string.Empty;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            var test = line.Split(':').Select(x => x.Trim()).ToArray();
+                            dictionnary.Add(char.Parse(test[0]), test[1]);
+                        }
+
+                    }
+
+                }
+
+            }
+            catch (Exception eException)
+            {
+                Console.WriteLine(eException);
+            }
+
+            return dictionnary;
         }
     }
 }
