@@ -15,19 +15,19 @@ namespace HuffmanCode
             stopwatchglob.Start();
 
             Occurencies a = new Occurencies();
-            string prexPath = "HuffmanCode/Assert/";
+            string prexPath = "../../../HuffmanCode/Assert/";
 
             TreeBuilder builder = new TreeBuilder();
-            var fileOccurencies = File.ReadAllText($"{prexPath}Alice.txt");
+            var fileOccurencies = File.ReadAllText($"{prexPath}input.txt");
 
             var r = a.GuessNumberOfOccurenciesWithDictionnary(fileOccurencies);
 
             Node res = builder.BuildTree(r);
 
             FileBuilder fileBuilder = new FileBuilder();
-            string contentBin = fileBuilder.FileTobin($"{prexPath}Alice.txt");
+            string contentBin = fileBuilder.FileTobin($"{prexPath}input.txt");
             fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin);
-           
+
             var dict = new Dictionary<char, string>();
             dict = TreeBuilder.ReadNodeToDictionnary(res, "", dict);
 
@@ -43,21 +43,28 @@ namespace HuffmanCode
             //Stopwatch stopwatch = new Stopwatch();
             // Démarrage du chronomètre.
             //stopwatch.Start();
-            fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}Alice.txt");
+            fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}input.txt");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 
             //stopwatch = new Stopwatch();
             // Démarrage du chronomètre pour le replace
             //stopwatch.Start();
-            //fileBuilder.TranslateContentToBinByHuffManReplace(dictOfFiles, $"{prexPath}Alice.txt");
+            //fileBuilder.TranslateContentToBinByHuffManReplace(dictOfFiles, $"{prexPath}input.txt");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution replace : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 
             //*******************************************************************************************************************************************************************
             //  2.4 g - Écrire une fonction qui compresse un fichier texte. Le fichier d’entrée ne sera pas modifié, un autre fichier, contenant le texte compressé sera créé.
             //*******************************************************************************************************************************************************************
-            bool isCompresse = fileBuilder.FileCompresse($"{prexPath}Alice.txt", $"{prexPath}Output2.txt", dictOfFiles);
+
+            Stopwatch CompresseTime = new Stopwatch();
+
+            CompresseTime.Start();
+            bool isCompresse = fileBuilder.FileCompresse($"{prexPath}input.txt", $"{prexPath}Output2.txt", dictOfFiles);
+            CompresseTime.Stop();
+            Console.WriteLine($"Compresse TIme {CompresseTime.Elapsed.TotalSeconds}");
+
             if (isCompresse)
             {
                 //Console.WriteLine("Compresse Succes !!");
@@ -68,9 +75,15 @@ namespace HuffmanCode
                 //Console.WriteLine("Compresse Failed !!");
             }
 
+
             //stopwatch = new Stopwatch();
             //stopwatch.Start();
+            Stopwatch DeCompresseTime = new Stopwatch();
+
+            DeCompresseTime.Start();
             bool isDecompresse = fileBuilder.FileDecompresse(dictOfFiles, $"{prexPath}Output3.txt", $"{prexPath}Output2.txt");
+            DeCompresseTime.Stop();
+            Console.WriteLine($"DeCompresse TIme {DeCompresseTime.Elapsed.TotalSeconds}");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution Decompress : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 
@@ -87,7 +100,7 @@ namespace HuffmanCode
             stopwatchglob.Stop();
             Console.WriteLine("Durée d'exécution TOTAAAAAAL : {0} sec.", stopwatchglob.Elapsed.TotalSeconds);
 
-
+            Console.ReadLine();
 
         }
 

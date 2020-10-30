@@ -270,10 +270,13 @@ namespace HuffmanCode.Helper
                 if (DictonnaryHuffman.Count != 0)
                 {
                     using (StreamWriter file = new StreamWriter(FileToWrite))
+                    {
                         foreach (var entry in DictonnaryHuffman)
                         {
-                            file.WriteLine("{0} : {1}", entry.Key, entry.Value);
+                            file.WriteLine("{0} : {1}", (byte)entry.Key, entry.Value);
+                            Console.WriteLine("{0} : {1}", (int)entry.Key, entry.Value);
                         }
+                    }
                 }
             }
             catch (Exception eException)
@@ -301,8 +304,12 @@ namespace HuffmanCode.Helper
                         {
                             var test = line.Split(':').Select(x => x.Trim()).ToArray();
 
-                            if(test[0] == string.Empty) dictionnary.Add(' ', test[1]);
-                            else dictionnary.Add(char.Parse(test[0]), test[1]);
+                            var charKey = (char)Convert.ToInt32(test[0]);
+                            Console.WriteLine(charKey);
+
+
+                            if (charKey == ' ') dictionnary.Add(' ', test[1]);
+                            else dictionnary.Add(charKey, test[1]);
                         }
 
                     }
