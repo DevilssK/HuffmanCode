@@ -47,7 +47,7 @@ namespace HuffmanCode
             //Stopwatch stopwatch = new Stopwatch();
             // Démarrage du chronomètre.
             //stopwatch.Start();
-            fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}Alice.txt");
+           // fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}Alice.txt");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 
