@@ -36,6 +36,7 @@ namespace HuffmanCode
 
 
             Debug.Assert(dictOfFiles.Count == dict.Count);
+
             //******************************************************************************************************************
             //  2.4 f - Écrire une fonction qui traduit un texte en une suite binaire basée sur un dictionnaire de Huffman.
             //*******************************************************************************************************************
@@ -43,7 +44,7 @@ namespace HuffmanCode
             //Stopwatch stopwatch = new Stopwatch();
             // Démarrage du chronomètre.
             //stopwatch.Start();
-            fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}input.txt");
+           // fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}input.txt");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 

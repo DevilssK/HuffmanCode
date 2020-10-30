@@ -273,8 +273,7 @@ namespace HuffmanCode.Helper
                     {
                         foreach (var entry in DictonnaryHuffman)
                         {
-                            file.WriteLine("{0} : {1}", (byte)entry.Key, entry.Value);
-                            Console.WriteLine("{0} : {1}", (int)entry.Key, entry.Value);
+                            file.WriteLine("{0} : {1}", (byte)entry.Key, entry.Value);                          
                         }
                     }
                 }
@@ -304,8 +303,7 @@ namespace HuffmanCode.Helper
                         {
                             var test = line.Split(':').Select(x => x.Trim()).ToArray();
 
-                            var charKey = (char)Convert.ToInt32(test[0]);
-                            Console.WriteLine(charKey);
+                            var charKey = (char)Convert.ToInt32(test[0]);                
 
 
                             if (charKey == ' ') dictionnary.Add(' ', test[1]);
