@@ -27,16 +27,19 @@ namespace HuffmanCode
             FileBuilder fileBuilder = new FileBuilder();
             string contentBin = fileBuilder.FileTobin($"{prexPath}input.txt");
             fileBuilder.CreateFile($"{prexPath}Output.txt", contentBin);
+           
+            using (StreamWriter file = new StreamWriter($"{prexPath}Dico.txt"))
+            {
+                TreeBuilder.ReadNodeToDictionnary(res, "", file);
+                file.Close();
+            }
 
-            var dict = new Dictionary<char, string>();
-            dict = TreeBuilder.ReadNodeToDictionnary(res, "", dict);
-
-            fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
+            //Old way 
+            //fileBuilder.DictoToFiles(dict, $"{prexPath}Dico.txt");
             var dictOfFiles = fileBuilder.FilesToDicto($"{prexPath}Dico.txt");
 
 
-            Debug.Assert(dictOfFiles.Count == dict.Count);
-
+            //Debug.Assert(dictOfFiles.Count == dict.Count);
             //******************************************************************************************************************
             //  2.4 f - Écrire une fonction qui traduit un texte en une suite binaire basée sur un dictionnaire de Huffman.
             //*******************************************************************************************************************
@@ -44,7 +47,7 @@ namespace HuffmanCode
             //Stopwatch stopwatch = new Stopwatch();
             // Démarrage du chronomètre.
             //stopwatch.Start();
-           // fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}input.txt");
+           // fileBuilder.TranslateContentToBinByHuffMan(dictOfFiles, $"{prexPath}Alice.txt");
             //stopwatch.Stop();
             //Console.WriteLine("Durée d'exécution 2.4 f : {0} sec.", stopwatch.Elapsed.TotalSeconds);
 
