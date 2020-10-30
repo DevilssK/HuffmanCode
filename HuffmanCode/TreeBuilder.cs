@@ -59,7 +59,7 @@ namespace HuffmanCode
 
             if (node._item.Letter != '\0')
             {
-                file.WriteLine("{0} : {1}", node._item.Letter, bit);
+                file.WriteLine("{0} : {1}", (byte)node._item.Letter, bit);
             }
 
             if (node.ChildLeft != null)
